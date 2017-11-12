@@ -1,0 +1,29 @@
+defmodule Licensir.Mixfile do
+  use Mix.Project
+
+  def project do
+    [
+      app: :licensir,
+      version: "0.1.0",
+      elixir: "~> 1.5",
+      escript: [main_module: Licensir.Licenses],
+      deps: deps(),
+      name: "Licensir",
+      description: "An Elixir mix task that list the license(s) of all installed packages in your project.",
+      package: package()
+    ]
+  end
+
+  defp package do
+    [
+      files: ["lib", "mix.exs", "README.md", "LICENSE"],
+      maintainers: ["Unnawut Leepaisalsuwanna"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/unnawut/licensir"},
+    ]
+  end
+
+  defp deps do
+    []
+  end
+end
