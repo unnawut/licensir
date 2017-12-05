@@ -4,7 +4,7 @@ defmodule Licensir.Mixfile do
   def project do
     [
       app: :licensir,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.5",
       escript: [main_module: Licensir.Licenses],
       deps: deps(),
