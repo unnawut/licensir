@@ -4,10 +4,10 @@ defmodule Mix.Tasks.Licenses do
   @shortdoc "Lists the licenses defined by each dependecy"
 
   @moduledoc """
-  Lists the licenses defined by each dependecy
+  Lists the licenses defined by each dependecy.
 
   ## Arguments
-      mix licenses      - print a list containing the licenses defined in each dependency
+      mix licenses      # Prints a list containing the licenses defined in each dependency
   """
 
   @recursive true

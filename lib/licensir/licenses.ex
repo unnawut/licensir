@@ -1,6 +1,9 @@
 defmodule Licensir.Licenses do
   @extra_name_padding 4
 
+  @doc """
+  Extracts licenses from the dependencies, formats into a list, and print out the result.
+  """
   def list() do
     Mix.Project.get!
 
