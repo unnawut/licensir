@@ -9,13 +9,23 @@ The package can be installed by adding `licensir` to your list of dependencies i
 ```elixir
 def deps do
   [
-    {:licensir, "~> 0.1.0"}
+    {:licensir, "~> 0.1.0", only: :dev, runtime: false}
   ]
 end
 ```
 
-Run the command to list the licenses with:
+This mix task in most cases only needs to be run on a development machine and independent from the runtime applications, hence the `only: dev, runtime: false` options.
+
+## Usage
+
+Run the command to get the list of packages and their licenses:
 
 ```shell
 mix licenses
 ```
+
+## License
+
+Copyright (c) 2017, Unnawut Leepaisalsuwanna.
+
+Licensir is released under the [MIT License](LICENSE.md).
