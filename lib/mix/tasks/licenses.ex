@@ -18,7 +18,7 @@ defmodule Mix.Tasks.Licenses do
     licenses = Licensir.Scanner.scan()
 
     Enum.each(licenses, fn(license) ->
-      license.name <> " " <> license.version
+      license.name <> " " <> (license.version || "")
       |> String.pad_trailing(@name_width)
       |> Kernel.<>("-> " <> license.license)
       |> IO.puts()
