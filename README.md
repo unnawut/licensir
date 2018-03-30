@@ -28,7 +28,6 @@ The command above should return an output similar to below (example from [phoeni
 
 ```shell
 $ mix licenses
-Licenses listed by their dependency:
 cowboy 2.2.2            -> Undefined
 cowlib 2.1.0            -> Undefined
 earmark                 -> Apache 2 (see the file LICENSE for details)

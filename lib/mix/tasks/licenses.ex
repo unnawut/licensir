@@ -13,8 +13,6 @@ defmodule Mix.Tasks.Licenses do
   @name_width 24
 
   def run(_argv) do
-    [:yellow, "Licenses listed by their dependency:"] |> IO.ANSI.format() |> IO.puts()
-
     licenses =
       Licensir.Scanner.scan()
       |> Enum.sort_by(fn(license) -> license.name end)
