@@ -16,7 +16,7 @@ defmodule Licensir.Mixfile do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README.md", "LICENSE"],
+      files: ["lib", "priv", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Unnawut Leepaisalsuwanna"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/unnawut/licensir"},
