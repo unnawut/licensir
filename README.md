@@ -9,7 +9,7 @@ The package can be installed by adding `licensir` to your list of dependencies i
 ```elixir
 def deps do
   [
-    {:licensir, "~> 0.1.0", only: :dev, runtime: false}
+    {:licensir, "~> 0.2.0", only: :dev, runtime: false}
   ]
 end
 ```
