@@ -29,19 +29,21 @@ The command above should return an output similar to below (example from [phoeni
 ```shell
 $ mix licenses
 Licenses listed by their dependency:
-cowboy 1.1.2            -> License is undefined
-cowlib 1.0.2            -> License is undefined
-earmark                 -> Apache 2 (see the file LICENSE for details)
-ex_doc                  -> Apache 2.0
+websocket_client        -> Undefined
 gettext                 -> Apache 2.0
-inch_ex                 -> MIT
-mime 1.1.0              -> Apache 2
-phoenix_html            -> MIT
+ranch 1.4.0             -> Undefined
+jason 1.0.0             -> Unsure (found: Apache 2.0, Apache 2)
+poison                  -> CC0-1.0
+licensir 0.2.3          -> MIT
+earmark                 -> Apache 2 (see the file LICENSE for details)
+ex_doc                  -> Unsure (found: Apache 2.0, Apache 2)
 phoenix_pubsub 1.0.2    -> MIT
-plug 1.4.3              -> Apache 2
-poison 3.1.0            -> CC0-1.0
-ranch 1.3.2             -> License is undefined
-websocket_client        -> License is undefined
+cowlib 2.1.0            -> Undefined
+cowboy 2.2.2            -> Undefined
+mime 1.2.0              -> Apache 2
+plug 1.5.0              -> Apache 2
+phoenix_html            -> MIT
+inch_ex                 -> MIT
 ```
 
 ## License
