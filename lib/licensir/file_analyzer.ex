@@ -13,8 +13,6 @@ defmodule Licensir.FileAnalyzer do
     lgpl: ["LGPL.txt"],
     mit: ["MIT.txt"],
     mpl2: ["MPL2.txt"],
-    new_bsd: ["NewBSD.txt"],
-    simplified_bsd: ["SimplifiedBSD.txt"]
   ]
 
   def analyze(dir_path) do
