@@ -29,25 +29,25 @@ The command above should return an output similar to below (example from [phoeni
 ```shell
 $ mix licenses
 Licenses listed by their dependency:
-websocket_client        -> Undefined
-gettext                 -> Apache 2.0
-ranch 1.4.0             -> Undefined
-jason 1.0.0             -> Unsure (found: Apache 2.0, Apache 2)
-poison                  -> CC0-1.0
-licensir 0.2.3          -> MIT
+cowboy 2.2.2            -> Undefined
+cowlib 2.1.0            -> Undefined
 earmark                 -> Apache 2 (see the file LICENSE for details)
 ex_doc                  -> Unsure (found: Apache 2.0, Apache 2)
-phoenix_pubsub 1.0.2    -> MIT
-cowlib 2.1.0            -> Undefined
-cowboy 2.2.2            -> Undefined
-mime 1.2.0              -> Apache 2
-plug 1.5.0              -> Apache 2
-phoenix_html            -> MIT
+gettext                 -> Apache 2.0
 inch_ex                 -> MIT
+jason 1.0.0             -> Unsure (found: Apache 2.0, Apache 2)
+licensir 0.2.5          -> MIT
+mime 1.2.0              -> Apache 2
+phoenix_html            -> MIT
+phoenix_pubsub 1.0.2    -> MIT
+plug 1.5.0              -> Apache 2
+poison                  -> CC0-1.0
+ranch 1.4.0             -> Undefined
+websocket_client        -> Undefined
 ```
 
 ## License
 
 Copyright (c) 2017, Unnawut Leepaisalsuwanna.
 
-Licensir is released under the [MIT License](LICENSE.md).
+Licensir is released under the [MIT License](LICENSE).
