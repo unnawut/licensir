@@ -10,10 +10,10 @@ defmodule Licensir.Scanner do
     cc0: "CC0-1.0",
     gpl_v2: "GPLv2",
     gpl_v3: "GPLv3",
-    isc: ["ISC"],
-    lgpl: ["LGPL"],
-    mit: ["MIT"],
-    mpl2: ["MPL2"],
+    isc: "ISC",
+    lgpl: "LGPL",
+    mit: "MIT",
+    mpl2: "MPL2",
   }
 
   @doc """
