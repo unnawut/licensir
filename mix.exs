@@ -38,7 +38,7 @@ defmodule Licensir.Mixfile do
   defp deps do
     [
       {:ex_doc, ">= 0.0.0", only: :dev},
-      {:excoveralls, github: "parroty/excoveralls"}
+      {:excoveralls, "~> 0.8", only: :test}
     ]
   end
 end
