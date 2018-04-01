@@ -20,8 +20,8 @@ defmodule Licensir.License do
             dep: nil,
             license: nil,
             certainty: 0.0,
-            license_mix: nil,
-            license_file: nil
+            mix: nil,
+            file: nil
 
   @type t :: %__MODULE__{
           app: atom(),
@@ -30,7 +30,7 @@ defmodule Licensir.License do
           dep: Mix.Dep.t(),
           license: String.t() | nil,
           certainty: float(),
-          license_mix: list(String.t()) | nil,
-          license_file: String.t() | nil
+          mix: list(String.t()) | nil,
+          file: String.t() | nil
         }
 end

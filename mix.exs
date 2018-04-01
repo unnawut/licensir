@@ -6,6 +6,7 @@ defmodule Licensir.Mixfile do
       app: :licensir,
       version: "0.2.7",
       elixir: "~> 1.5",
+      elixirc_paths: elixirc_paths(Mix.env),
       escript: [main_module: Licensir.Licenses],
       deps: deps(),
       name: "Licensir",
@@ -13,6 +14,10 @@ defmodule Licensir.Mixfile do
       package: package()
     ]
   end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_),     do: ["lib"]
 
   defp package do
     [

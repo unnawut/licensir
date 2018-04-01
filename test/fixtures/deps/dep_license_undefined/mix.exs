@@ -4,7 +4,7 @@ defmodule DepLicenseUndefined.MixProject do
   def project do
     [
       app: :dep_license_undefined,
-      version: "1.0.0",
+      version: "0.0.1",
       package: package()
     ]
   end

@@ -2,7 +2,7 @@ defmodule Licensir.Scanner do
   @moduledoc """
   Scans the project's dependencies for their license information.
   """
-  alias Licensir.{License, FileAnalyzer}
+  alias Licensir.{License, FileAnalyzer, Guesser}
 
   @human_names %{
     apache2: "Apache 2",
@@ -27,7 +27,7 @@ defmodule Licensir.Scanner do
     |> to_struct()
     |> search_mix()
     |> search_file()
-    |> guess_license()
+    |> Guesser.guess()
   end
 
   @spec deps() :: list(Mix.Dep.t)
@@ -70,19 +70,5 @@ defmodule Licensir.Scanner do
       end)
 
     Map.get(@human_names, license_atom)
-  end
-
-  defp guess_license(licenses) when is_list(licenses), do: Enum.map(licenses, &guess_license/1)
-  defp guess_license(%License{} = license) do
-    conclusion = guess_license(license.mix, license.file)
-    Map.put(license, :license, conclusion)
-  end
-
-  defp guess_license(nil, nil), do: "Undefined"
-  defp guess_license(nil, file), do: file
-  defp guess_license(mix, nil) when length(mix) > 0, do: Enum.join(mix, ", ")
-  defp guess_license(mix, file) when length(mix) == 1 and hd(mix) == file, do: file
-  defp guess_license(mix, file) do
-    "Unsure (found: " <> Enum.join(mix, ", ") <> ", " <> file <> ")"
   end
 end
