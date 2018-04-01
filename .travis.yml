@@ -7,3 +7,8 @@ elixir:
 otp_release:
   - '19.3'
   - '20.3'
+
+env:
+  - MIX_ENV=test
+
+script: mix coveralls.travis

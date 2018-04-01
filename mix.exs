@@ -11,12 +11,19 @@ defmodule Licensir.Mixfile do
       deps: deps(),
       name: "Licensir",
       description: "An Elixir mix task that list the license(s) of all installed packages in your project.",
-      package: package()
+      package: package(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        "coveralls": :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["test/support", "lib"]
   defp elixirc_paths(_),     do: ["lib"]
 
   defp package do
@@ -30,7 +37,8 @@ defmodule Licensir.Mixfile do
 
   defp deps do
     [
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:excoveralls, github: "parroty/excoveralls"}
     ]
   end
 end
