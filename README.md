@@ -1,4 +1,4 @@
-# Licensir [![Build Status](https://travis-ci.org/unnawut/licensir.svg?branch=master)](https://travis-ci.org/unnawut/licensir)
+# Licensir [![Build Status](https://travis-ci.org/unnawut/licensir.svg?branch=master)](https://travis-ci.org/unnawut/licensir) [![Coverage Status](https://coveralls.io/repos/github/unnawut/licensir/badge.svg?branch=master)](https://coveralls.io/github/unnawut/licensir?branch=master)
 
 An Elixir mix task that list the license(s) of all installed packages in your project.
 
