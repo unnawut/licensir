@@ -1,5 +1,5 @@
 defmodule Licensir.GuesserTest do
-  use ExUnit.Case
+  use Licensir.Case
   alias Licensir.{Guesser, License}
 
   describe "Guesser.guess/1" do

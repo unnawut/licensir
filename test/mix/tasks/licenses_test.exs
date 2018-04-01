@@ -1,5 +1,5 @@
 defmodule Licensir.Mix.Tasks.LicensesTest do
-  use ExUnit.Case
+  use Licensir.Case
   import ExUnit.CaptureIO
 
   test "prints a list of dependencies and their licenses" do

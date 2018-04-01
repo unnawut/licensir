@@ -1,4 +1,4 @@
-defmodule Licensir.DepsApp do
+defmodule Licensir.TestApp do
   def project do
     [
       deps: [

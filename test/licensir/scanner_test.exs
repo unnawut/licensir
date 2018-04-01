@@ -1,5 +1,5 @@
 defmodule Licensir.ScannerTest do
-  use ExUnit.Case
+  use Licensir.Case
 
   test "returns a list of Licensir.Licenses struct" do
     licenses = Licensir.Scanner.scan()
@@ -9,7 +9,7 @@ defmodule Licensir.ScannerTest do
     end)
   end
 
-  test "returns a list of Licensir.DepsApp's licenses" do
+  test "returns a list of Licensir.TestApp's licenses" do
     licenses = Licensir.Scanner.scan()
 
     assert has_license?(licenses, %{app: :dep_one_license})
