@@ -1,3 +1,2 @@
 defmodule Licensir do
-
 end

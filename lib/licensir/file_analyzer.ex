@@ -12,11 +12,11 @@ defmodule Licensir.FileAnalyzer do
     isc: ["ISC.txt"],
     lgpl: ["LGPL.txt"],
     mit: ["MIT.txt"],
-    mpl2: ["MPL2.txt"],
+    mpl2: ["MPL2.txt"]
   ]
 
   def analyze(dir_path) do
-    Enum.find_value(@license_files, fn(file_name) ->
+    Enum.find_value(@license_files, fn file_name ->
       dir_path
       |> Path.join(file_name)
       |> File.read()
@@ -29,9 +29,9 @@ defmodule Licensir.FileAnalyzer do
 
   # Returns the first license that matches
   defp analyze_content(content) do
-    Enum.find_value(@files, fn({license, license_files}) ->
+    Enum.find_value(@files, fn {license, license_files} ->
       found =
-        Enum.find(license_files, fn(license_file) ->
+        Enum.find(license_files, fn license_file ->
           license =
             :licensir
             |> :code.priv_dir()

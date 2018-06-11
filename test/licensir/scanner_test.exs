@@ -4,9 +4,9 @@ defmodule Licensir.ScannerTest do
   test "returns a list of Licensir.Licenses struct" do
     licenses = Licensir.Scanner.scan()
 
-    assert Enum.all?(licenses, fn(license) ->
-      license.__struct__ == Licensir.License
-    end)
+    assert Enum.all?(licenses, fn license ->
+             license.__struct__ == Licensir.License
+           end)
   end
 
   test "returns a list of Licensir.TestApp's licenses" do
@@ -18,7 +18,7 @@ defmodule Licensir.ScannerTest do
   end
 
   defp has_license?(licenses, search_map) do
-    Enum.any?(licenses, fn(license) ->
+    Enum.any?(licenses, fn license ->
       Map.merge(license, search_map) == license
     end)
   end

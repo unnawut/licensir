@@ -14,13 +14,13 @@ defmodule Mix.Tasks.Licenses do
 
   def run(_argv) do
     Licensir.Scanner.scan()
-    |> Enum.sort_by(fn(license) -> license.name end)
+    |> Enum.sort_by(fn license -> license.name end)
     |> print_licenses()
   end
 
   defp print_licenses(licenses) do
-    Enum.each(licenses, fn(license) ->
-      license.name <> " " <> (license.version || "")
+    Enum.each(licenses, fn license ->
+      (license.name <> " " <> (license.version || ""))
       |> String.pad_trailing(@name_width)
       |> Kernel.<>("-> " <> license.license)
       |> IO.puts()

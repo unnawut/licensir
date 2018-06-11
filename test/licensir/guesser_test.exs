@@ -46,7 +46,7 @@ defmodule Licensir.GuesserTest do
       }
 
       assert Guesser.guess(license).license ==
-        "Unsure (found: License One, License Two, License Three)"
+               "Unsure (found: License One, License Two, License Three)"
     end
 
     test "returns Undefined if no license data is found" do
