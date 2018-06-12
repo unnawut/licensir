@@ -15,15 +15,21 @@ defmodule Mix.Tasks.Licenses do
   def run(_argv) do
     Licensir.Scanner.scan()
     |> Enum.sort_by(fn license -> license.name end)
-    |> print_licenses()
+    |> Enum.map(&print_license/1)
+    |> Mix.Shell.IO.info()
   end
 
-  defp print_licenses(licenses) do
-    Enum.each(licenses, fn license ->
-      (license.name <> " " <> (license.version || ""))
-      |> String.pad_trailing(@name_width)
-      |> Kernel.<>("-> " <> license.license)
-      |> IO.puts()
-    end)
+  defp print_license(%{name: name, version: version, license: license}) do
+    [
+      String.pad_trailing(name <> " " <> (version || ""), @name_width),
+      "-> ",
+      color(license),
+      :reset,
+      "\n"
+    ]
   end
+
+  defp color("Unsure " <> _ = license), do: [:yellow, license]
+  defp color("Undefined" = license), do: [:red, license]
+  defp color(license), do: [:green, license]
 end

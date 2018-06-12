@@ -8,11 +8,15 @@ defmodule Licensir.Mix.Tasks.LicensesTest do
         Mix.Tasks.Licenses.run([])
       end)
 
-    assert output ==
-             """
-             dep_license_undefined   -> Undefined
-             dep_one_license         -> License One
-             dep_two_licenses        -> License Two, License Three
-             """
+    expected =
+      IO.ANSI.format([
+        "dep_license_undefined   -> ", [:red, "Undefined"], :reset, "\n",
+        "dep_one_license         -> ", [:green, "License One"], :reset, "\n",
+        "dep_two_licenses        -> ", [:green, "License Two, License Three"], :reset, "\n"
+      ])
+      |> to_string()
+      |> Kernel.<>("\n")
+
+    assert output == expected
   end
 end
