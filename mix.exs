@@ -6,15 +6,16 @@ defmodule Licensir.Mixfile do
       app: :licensir,
       version: "0.2.7",
       elixir: "~> 1.5",
-      elixirc_paths: elixirc_paths(Mix.env),
+      elixirc_paths: elixirc_paths(Mix.env()),
       escript: [main_module: Licensir.Licenses],
       deps: deps(),
       name: "Licensir",
-      description: "An Elixir mix task that list the license(s) of all installed packages in your project.",
+      description:
+        "An Elixir mix task that list the license(s) of all installed packages in your project.",
       package: package(),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
-        "coveralls": :test,
+        coveralls: :test,
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test
@@ -24,14 +25,14 @@ defmodule Licensir.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["test/support", "lib"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp package do
     [
       files: ["lib", "priv", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Unnawut Leepaisalsuwanna"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/unnawut/licensir"},
+      links: %{"GitHub" => "https://github.com/unnawut/licensir"}
     ]
   end
 
