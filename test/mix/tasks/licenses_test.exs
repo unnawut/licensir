@@ -12,7 +12,8 @@ defmodule Licensir.Mix.Tasks.LicensesTest do
       IO.ANSI.format([
         "dep_license_undefined   -> ", [:red, "Undefined"], :reset, "\n",
         "dep_one_license         -> ", [:green, "License One"], :reset, "\n",
-        "dep_two_licenses        -> ", [:green, "License Two, License Three"], :reset, "\n"
+        "dep_two_licenses        -> ", [:green, "License Two, License Three"], :reset, "\n",
+        "dep_two_variants_same_license -> ", [:green, "Apache 2.0"], :reset, "\n"
       ])
       |> to_string()
       |> Kernel.<>("\n")

@@ -2,7 +2,7 @@ defmodule Licensir.Guesser do
   @moduledoc """
   A module that determines a dependency's license based on different sources gathered.
   """
-  alias Licensir.License
+  alias Licensir.{License, NamingVariants}
 
   @doc """
   Guess the license based on the available license data.
@@ -10,7 +10,10 @@ defmodule Licensir.Guesser do
   def guess(licenses) when is_list(licenses), do: Enum.map(licenses, &guess/1)
 
   def guess(%License{} = license) do
-    conclusion = guess(license.mix, license.file)
+    mix_licenses = NamingVariants.normalize(license.mix)
+    file_licenses = NamingVariants.normalize(license.file)
+
+    conclusion = guess(mix_licenses, file_licenses)
     Map.put(license, :license, conclusion)
   end
 
