@@ -8,7 +8,9 @@ defmodule Licensir.Mix.Tasks.LicensesTest do
         Mix.Tasks.Licenses.run([])
       end)
 
-    expected =
+    notice = "Notice: This is not a legal advice. Use the information below at your own risk.\n"
+
+    content =
       IO.ANSI.format([
         "dep_license_undefined   -> ", [:red, "Undefined"], :reset, "\n",
         "dep_one_license         -> ", [:green, "License One"], :reset, "\n",
@@ -17,6 +19,8 @@ defmodule Licensir.Mix.Tasks.LicensesTest do
       ])
       |> to_string()
       |> Kernel.<>("\n")
+
+    expected = notice <> content
 
     assert output == expected
   end
