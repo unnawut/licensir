@@ -26,7 +26,7 @@ defmodule Licensir.Scanner do
 
     deps()
     |> to_struct()
-    |> search_mix()
+    |> search_hex_metadata()
     |> search_file()
     |> Guesser.guess()
   end
@@ -48,17 +48,35 @@ defmodule Licensir.Scanner do
   defp get_version(%Mix.Dep{status: {:ok, version}}), do: version
   defp get_version(_), do: nil
 
-  defp search_mix(licenses) when is_list(licenses), do: Enum.map(licenses, &search_mix/1)
+  #
+  # Search in hex_metadata.config
+  #
 
-  defp search_mix(%License{} = license) do
-    Map.put(license, :mix, search_mix(license.dep))
+  defp search_hex_metadata(licenses) when is_list(licenses), do: Enum.map(licenses, &search_hex_metadata/1)
+
+  defp search_hex_metadata(%License{} = license) do
+    Map.put(license, :hex_metadata, search_hex_metadata(license.dep))
   end
 
-  defp search_mix(%Mix.Dep{} = dep) do
+  defp search_hex_metadata(%Mix.Dep{} = dep) do
     Mix.Dep.in_dependency(dep, fn _ ->
-      get_in(Mix.Project.config(), [:package, :licenses])
+      "hex_metadata.config"
+      |> :file.consult()
+      |> case do
+        {:ok, metadata} -> metadata
+        {:error, _} -> []
+      end
+      |> List.keyfind("licenses", 0)
+      |> case do
+        {_, licenses} -> licenses
+        _ -> nil
+      end
     end)
   end
+
+  #
+  # Search in LICENSE file
+  #
 
   defp search_file(licenses) when is_list(licenses), do: Enum.map(licenses, &search_file/1)
 

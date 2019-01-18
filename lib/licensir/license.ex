@@ -21,6 +21,7 @@ defmodule Licensir.License do
             license: nil,
             certainty: 0.0,
             mix: nil,
+            hex_metadata: nil,
             file: nil
 
   @type t :: %__MODULE__{
@@ -31,6 +32,7 @@ defmodule Licensir.License do
           license: String.t() | nil,
           certainty: float(),
           mix: list(String.t()) | nil,
+          hex_metadata: list(String.t()) | nil,
           file: String.t() | nil
         }
 end
