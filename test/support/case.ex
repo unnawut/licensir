@@ -1,12 +1,10 @@
 defmodule Licensir.Case do
-  defmacro __using__(_) do
-    quote do
-      use ExUnit.Case
+  use ExUnit.CaseTemplate
+  alias Licensir.TestApp
+  alias Mix.Project
 
-      setup do
-        Mix.Project.push(Licensir.TestApp)
-        on_exit(fn -> Mix.Project.pop() end)
-      end
-    end
+  setup do
+    Project.push(TestApp)
+    on_exit(fn -> Project.pop() end)
   end
 end
