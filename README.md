@@ -9,7 +9,7 @@ The package can be installed by adding `licensir` to your list of dependencies i
 ```elixir
 def deps do
   [
-    {:licensir, "~> 0.2.0", only: :dev, runtime: false}
+    {:licensir, "~> 0.3.0", only: :dev, runtime: false}
   ]
 end
 ```
@@ -47,6 +47,6 @@ websocket_client        -> Undefined
 
 ## License
 
-Copyright (c) 2017, Unnawut Leepaisalsuwanna.
+Copyright (c) 2017-2019, Unnawut Leepaisalsuwanna.
 
 Licensir is released under the [MIT License](LICENSE).
