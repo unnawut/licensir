@@ -16,6 +16,16 @@ end
 
 This mix task in most cases only needs to be run on a development machine and independent from the runtime applications, hence the `only: dev, runtime: false` options.
 
+#### Install locally
+
+If you do not wish to include this tool as part of your dependencies, you may also install it locally by running:
+
+```elixir
+$ mix archive.install hex licensir 0.4.0
+```
+
+Now you can access this tool from any path on your local machine that has access to `mix`.
+
 ## Usage
 
 Run the command to get the list of packages and their licenses:
