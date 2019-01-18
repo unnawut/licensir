@@ -13,7 +13,7 @@ defmodule Mix.Tasks.Licenses do
   @name_width 24
 
   def run(_argv) do
-    Mix.Shell.IO.info("Notice: This is not a legal advice. Use the information below at your own risk.")
+    Mix.Shell.IO.info([:yellow, "Notice: This is not a legal advice. Use the information below at your own risk."])
 
     Licensir.Scanner.scan()
     |> Enum.sort_by(fn license -> license.name end)
