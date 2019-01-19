@@ -45,7 +45,7 @@ defmodule Licensir.FileAnalyzer do
         end)
 
       if found, do: license, else: nil
-    end)
+    end) || :unrecognized_license_file
   end
 
   defp clean(content), do: String.replace(content, ~r/\v/, "")

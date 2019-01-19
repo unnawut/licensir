@@ -33,5 +33,6 @@ defmodule Mix.Tasks.Licenses do
 
   defp color("Unsure " <> _ = license), do: [:yellow, license]
   defp color("Undefined" = license), do: [:red, license]
+  defp color("Unrecognized license file content" <> _ = license), do: [:red, license]
   defp color(license), do: [:green, license]
 end

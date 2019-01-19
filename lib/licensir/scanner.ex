@@ -14,7 +14,8 @@ defmodule Licensir.Scanner do
     lgpl: "LGPL",
     mit: "MIT",
     mpl2: "MPL2",
-    licensir_mock_license: "Licensir Mock License"
+    licensir_mock_license: "Licensir Mock License",
+    unrecognized_license_file: "Unrecognized license file content"
   }
 
   @doc """
