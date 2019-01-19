@@ -1,4 +1,4 @@
-defmodule DepOneLicense.MixProject do
+defmodule DepTwoConflictingLicenses.MixProject do
   use Mix.Project
 
   def project do
@@ -11,7 +11,7 @@ defmodule DepOneLicense.MixProject do
 
   defp package do
     [
-      licenses: ["Licensir Mock License"]
+      licenses: ["Licensir One"]
     ]
   end
 end

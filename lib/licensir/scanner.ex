@@ -13,7 +13,8 @@ defmodule Licensir.Scanner do
     isc: "ISC",
     lgpl: "LGPL",
     mit: "MIT",
-    mpl2: "MPL2"
+    mpl2: "MPL2",
+    licensir_mock_license: "Licensir Mock License"
   }
 
   @doc """
