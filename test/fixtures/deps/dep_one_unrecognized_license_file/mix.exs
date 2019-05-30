@@ -1,4 +1,4 @@
-defmodule DepOneLicense.MixProject do
+defmodule DepOneUnrecognizedLicense.MixProject do
   use Mix.Project
 
   def project do

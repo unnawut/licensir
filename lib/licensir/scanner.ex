@@ -34,7 +34,18 @@ defmodule Licensir.Scanner do
   end
 
   @spec deps() :: list(Mix.Dep.t())
-  defp deps(), do: Mix.Dep.loaded([])
+  defp deps() do
+    func = loaded_deps_func_name()
+    apply(Mix.Dep, func, [[]])
+  end
+
+  defp loaded_deps_func_name() do
+    if Keyword.has_key?(Mix.Dep.__info__(:functions), :load_on_environment) do
+      :load_on_environment
+    else
+      :loaded
+    end
+  end
 
   defp to_struct(deps) when is_list(deps), do: Enum.map(deps, &to_struct/1)
 
