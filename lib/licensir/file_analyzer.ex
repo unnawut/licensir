@@ -1,6 +1,6 @@
 defmodule Licensir.FileAnalyzer do
   # The file names to check for licenses
-  @license_files ["LICENSE", "LICENSE.md"]
+  @license_files ["LICENSE", "LICENSE.md", "LICENSE.txt"]
 
   # The files that contain the actual text for each license
   @files [
