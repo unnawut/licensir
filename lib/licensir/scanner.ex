@@ -21,13 +21,14 @@ defmodule Licensir.Scanner do
   @doc """
   Scans all dependencies, formats into a list, and print out the result.
   """
-  @spec scan() :: list(License.t())
-  def scan() do
+  @spec scan(keyword()) :: list(License.t())
+  def scan(opts) do
     # Make sure the dependencies are loaded
     Mix.Project.get!()
 
     deps()
     |> to_struct()
+    |> filter_top_level(opts)
     |> search_hex_metadata()
     |> search_file()
     |> Guesser.guess()
@@ -56,6 +57,14 @@ defmodule Licensir.Scanner do
       version: get_version(dep),
       dep: dep
     }
+  end
+
+  defp filter_top_level(deps, opts) do
+    if Keyword.get(opts, :top_level_only) do
+      Enum.filter(deps, &(&1.dep.top_level))
+    else
+      deps
+    end
   end
 
   defp get_version(%Mix.Dep{status: {:ok, version}}), do: version
