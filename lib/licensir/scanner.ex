@@ -60,7 +60,7 @@ defmodule Licensir.Scanner do
   end
 
   defp filter_top_level(deps, opts) do
-    if Keyword.get(opts, :top_level_only, false) do
+    if Keyword.get(opts, :top_level_only) do
       Enum.filter(deps, &(&1.dep.top_level))
     else
       deps

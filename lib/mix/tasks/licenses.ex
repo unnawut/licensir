@@ -15,9 +15,9 @@ defmodule Mix.Tasks.Licenses do
   def run(argv) do
     Mix.Shell.IO.info([:yellow, "Notice: This is not a legal advice. Use the information below at your own risk."])
 
-    opts = [
-      top_level_only: Enum.member?(argv, "--top-level-only")
-    ]
+    {opts, _argv} = OptionParser.parse!(argv, switches: [
+      top_level_only: :boolean
+    ])
 
     Licensir.Scanner.scan(opts)
     |> Enum.sort_by(fn license -> license.name end)

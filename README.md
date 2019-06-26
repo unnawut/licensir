@@ -55,6 +55,9 @@ ranch 1.4.0             -> Undefined
 websocket_client        -> Undefined
 ```
 
+## Flags
+* `--top-level-only` - Only fetch license information from top level dependencies (e.g. packages that are directly listed in `mix.exs`) Excludes transitive dependencies.
+
 ## License
 
 Copyright (c) 2017-2019, Unnawut Leepaisalsuwanna.
