@@ -56,7 +56,7 @@ websocket_client        -> Undefined
 ```
 
 ## Flags
-* `--top-level-only` - Only fetch license information from top level dependencies (e.g. packages that are directly listed in `mix.exs`) Excludes transitive dependencies.
+* `--top-level-only` - Only fetch license information from top level dependencies (e.g. packages that are directly listed in your application's `mix.exs`). Excludes transitive dependencies.
 
 ## License
 
