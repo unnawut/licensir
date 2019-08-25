@@ -10,10 +10,8 @@ defmodule Mix.Tasks.Licenses do
   @shortdoc "Lists each dependency's licenses"
   @recursive true
 
-  @name_width 24
-
   def run(argv) do
-    Mix.Shell.IO.info([:yellow, "Notice: This is not a legal advice. Use the information below at your own risk."])
+    _ = Mix.Shell.IO.info([:yellow, "Notice: This is not a legal advice. Use the information below at your own risk."])
 
     {opts, _argv} = OptionParser.parse!(argv, switches: [
       top_level_only: :boolean
@@ -21,22 +19,12 @@ defmodule Mix.Tasks.Licenses do
 
     Licensir.Scanner.scan(opts)
     |> Enum.sort_by(fn license -> license.name end)
-    |> Enum.map(&print_license/1)
-    |> Mix.Shell.IO.info()
+    |> Enum.map(&to_row/1)
+    |> TableRex.quick_render!(["Package", "Version", "License"])
+    |> IO.puts()
   end
 
-  defp print_license(%{name: name, version: version, license: license}) do
-    [
-      String.pad_trailing(name <> " " <> (version || ""), @name_width),
-      "-> ",
-      color(license),
-      :reset,
-      "\n"
-    ]
+  defp to_row(map) do
+    [map.name, map.version, map.license]
   end
-
-  defp color("Unsure " <> _ = license), do: [:yellow, license]
-  defp color("Undefined" = license), do: [:red, license]
-  defp color("Unrecognized license file content" <> _ = license), do: [:red, license]
-  defp color(license), do: [:green, license]
 end

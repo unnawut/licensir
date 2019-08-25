@@ -34,29 +34,58 @@ Run the command to get the list of packages and their licenses:
 mix licenses
 ```
 
-The command above should return an output similar to below (example from [phoenix](https://github.com/phoenixframework/phoenix)):
+The command above should return an output similar to below:
 
 ```shell
 $ mix licenses
-cowboy 2.2.2            -> Undefined
-cowlib 2.1.0            -> Undefined
-earmark                 -> Apache 2 (see the file LICENSE for details)
-ex_doc                  -> Unsure (found: Apache 2.0, Apache 2)
-gettext                 -> Apache 2.0
-inch_ex                 -> MIT
-jason 1.0.0             -> Unsure (found: Apache 2.0, Apache 2)
-licensir 0.2.5          -> MIT
-mime 1.2.0              -> Apache 2
-phoenix_html            -> MIT
-phoenix_pubsub 1.0.2    -> MIT
-plug 1.5.0              -> Apache 2
-poison                  -> CC0-1.0
-ranch 1.4.0             -> Undefined
-websocket_client        -> Undefined
++---------------------+---------+--------------------------------------------------------+
+| Package             | Version | License                                                |
++---------------------+---------+--------------------------------------------------------+
+| certifi             |         | BSD                                                    |
+| earmark             | 1.3.2   | Apache 2.0                                             |
+| ex_doc              | 0.20.2  | Apache 2.0                                             |
+| excoveralls         |         | Unsure (found: MIT, Unrecognized license file content) |
+| hackney             |         | Apache 2.0                                             |
+| idna                |         | Unsure (found: BSD, MIT)                               |
+| jason               |         | Apache 2.0                                             |
+| makeup              | 0.8.0   | Unsure (found: BSD, Unrecognized license file content) |
+| makeup_elixir       | 0.13.0  | BSD                                                    |
+| metrics             |         | BSD                                                    |
+| mimerl              |         | MIT                                                    |
+| nimble_parsec       | 0.5.0   | Apache 2.0                                             |
+| ssl_verify_fun      |         | MIT                                                    |
+| table_rex           | 2.0.0   | MIT                                                    |
+| unicode_util_compat |         | Unsure (found: Apache 2.0, BSD)                        |
++---------------------+---------+--------------------------------------------------------+
 ```
 
-## Flags
+### Flags
 * `--top-level-only` - Only fetch license information from top level dependencies (e.g. packages that are directly listed in your application's `mix.exs`). Excludes transitive dependencies.
+
+## Usage as a library
+
+You may call the function `Licensir.Scanner.scan()` from your Elixir application to get a list of license data per dependency.
+
+```elixir
+iex> Licensir.Scanner.scan([])
+[
+  %Licensir.License{
+    app: :jason,
+    dep: %Mix.Dep{
+      app: :jason,
+      deps: ...
+    },
+    file: "Apache 2",
+    hex_metadata: ["Apache 2.0"],
+    license: "Apache 2.0",
+    mix: nil,
+    name: "jason",
+    version: nil
+  },
+  %Licensir.License{...},
+  ...
+]
+```
 
 ## License
 
