@@ -39,8 +39,7 @@ defmodule Licensir.Mixfile do
   defp deps do
     [
       {:ex_doc, ">= 0.19.0", only: :dev},
-      {:excoveralls, "~> 0.8", only: :test},
-      {:table_rex, "~> 2.0.0"}
+      {:excoveralls, "~> 0.8", only: :test}
     ]
   end
 end
