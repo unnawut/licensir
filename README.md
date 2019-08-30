@@ -93,4 +93,4 @@ Copyright (c) 2017-2019, Unnawut Leepaisalsuwanna.
 
 Licensir is released under the [MIT License](LICENSE).
 
-This project also contains a [partial copy](./tree/master/lib/table_rex) of [djm/table_rex](https://github.com/djm/table_rex).
+This project also contains a [partial copy](./lib/table_rex) of [djm/table_rex](https://github.com/djm/table_rex).
