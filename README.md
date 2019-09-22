@@ -9,7 +9,7 @@ The package can be installed by adding `licensir` to your list of dependencies i
 ```elixir
 def deps do
   [
-    {:licensir, "~> 0.5", only: :dev, runtime: false}
+    {:licensir, "~> 0.6", only: :dev, runtime: false}
   ]
 end
 ```
@@ -21,7 +21,7 @@ This mix task in most cases only needs to be run on a development machine and in
 If you do not wish to include this tool as part of your dependencies, you may also install it locally by running:
 
 ```elixir
-$ mix archive.install hex licensir 0.5.1
+$ mix archive.install hex licensir 0.6.0
 ```
 
 Now you can access this tool from any path on your local machine that has access to `mix`.
