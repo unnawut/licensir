@@ -28,4 +28,26 @@ defmodule Licensir.Mix.Tasks.LicensesTest do
 
     assert output == expected
   end
+
+  test "prints csv format when given --csv flag" do
+    output =
+      capture_io(fn ->
+        Mix.Tasks.Licenses.run(["--csv"])
+      end)
+
+    expected =
+      """
+      Package,Version,License\r
+      dep_license_undefined,,Undefined\r
+      dep_of_dep,,Undefined\r
+      dep_one_license,,Licensir Mock License\r
+      dep_one_unrecognized_license_file,,Unrecognized license file content\r
+      dep_two_conflicting_licenses,,"Unsure (found: License One, Licensir Mock License)"\r
+      dep_two_licenses,,"License Two, License Three"\r
+      dep_two_variants_same_license,,Apache 2.0\r
+      dep_with_dep,,Undefined\r
+      """
+
+    assert output == expected
+  end
 end

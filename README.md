@@ -28,13 +28,7 @@ Now you can access this tool from any path on your local machine that has access
 
 ## Usage
 
-Run the command to get the list of packages and their licenses:
-
-```shell
-mix licenses
-```
-
-The command above should return an output similar to below:
+Run `mix licenses` to get the list of packages and their licenses:
 
 ```shell
 $ mix licenses
@@ -57,6 +51,26 @@ $ mix licenses
 | table_rex           | 2.0.0   | MIT                                                    |
 | unicode_util_compat |         | Unsure (found: Apache 2.0, BSD)                        |
 +---------------------+---------+--------------------------------------------------------+
+```
+
+Run `mix licenses --csv` to output in csv format:
+
+```csv
+Package,Version,License
+certifi,,BSD
+earmark,1.3.2,Apache 2.0
+ex_doc,0.20.2,Apache 2.0
+excoveralls,,"Unsure (found: MIT, Unrecognized license file content)"
+hackney,,Apache 2.0
+idna,,"Unsure (found: BSD, MIT)"
+jason,,Apache 2.0
+makeup,0.8.0,"Unsure (found: BSD, Unrecognized license file content)"
+makeup_elixir,0.13.0,BSD
+metrics,,BSD
+mimerl,,MIT
+nimble_parsec,0.5.0,Apache 2.0
+ssl_verify_fun,,MIT
+unicode_util_compat,,"Unsure (found: Apache 2.0, BSD)"
 ```
 
 ### Flags
@@ -93,4 +107,7 @@ Copyright (c) 2017-2019, Unnawut Leepaisalsuwanna.
 
 Licensir is released under the [MIT License](LICENSE).
 
-This project also contains a [partial copy](./lib/table_rex) of [djm/table_rex](https://github.com/djm/table_rex).
+This project contains 3rd party work as follow:
+
+- ASCII table rendering: a [partial copy](./lib/table_rex) of [djm/table_rex](https://github.com/djm/table_rex).
+- CSV rendering: a [partial copy](./lib/csv) of [beatrichartz/csv](https://github.com/beatrichartz/csv).
