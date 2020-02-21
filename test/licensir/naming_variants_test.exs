@@ -7,6 +7,7 @@ defmodule Licensir.NamingVariantsTest do
       assert NamingVariants.normalize("Apache 2.0") == "Apache 2.0"
       assert NamingVariants.normalize("Apache 2") == "Apache 2.0"
       assert NamingVariants.normalize("Apache v2.0") == "Apache 2.0"
+      assert NamingVariants.normalize("Apache-2.0") == "Apache 2.0"
     end
 
     test "normalizes nil to nil" do

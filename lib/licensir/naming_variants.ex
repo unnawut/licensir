@@ -6,7 +6,8 @@ defmodule Licensir.NamingVariants do
     # Apache 2.0
     "Apache 2" => "Apache 2.0",
     "Apache v2.0" => "Apache 2.0",
-    "Apache 2 (see the file LICENSE for details)" => "Apache 2.0"
+    "Apache 2 (see the file LICENSE for details)" => "Apache 2.0",
+    "Apache-2.0" => "Apache 2.0"
   }
 
   @doc """
