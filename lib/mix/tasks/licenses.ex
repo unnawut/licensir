@@ -9,6 +9,7 @@ defmodule Mix.Tasks.Licenses do
   """
   use Mix.Task
 
+  @output_file "DEPENDENCIES.md"
   @shortdoc "Lists each dependency's licenses"
   @recursive true
   @switches [
@@ -20,13 +21,13 @@ defmodule Mix.Tasks.Licenses do
     {opts, _argv} = OptionParser.parse!(argv, switches: @switches)
 
     Licensir.Scanner.scan(opts)
-    |> Enum.sort_by(fn license -> license.name end)
+    |> Enum.sort_by(fn lib -> lib.name end)
     |> Enum.map(&to_row/1)
     |> render(opts)
   end
 
   defp to_row(map) do
-    [map.name, map.version, map.license]
+    [map.name, map.license, map.version, map.link]
   end
 
   defp render(rows, opts) do
@@ -37,17 +38,35 @@ defmodule Mix.Tasks.Licenses do
   end
 
   defp render_ascii_table(rows) do
-    _ = Mix.Shell.IO.info([:yellow, "Notice: This is not a legal advice. Use the information below at your own risk."])
+    _ =
+      Mix.Shell.IO.info([
+        :yellow,
+        "Notice: This is not a legal advice. Use the information below at your own risk."
+      ])
 
     rows
-    |> TableRex.quick_render!(["Package", "Version", "License"])
-    |> IO.puts()
+    |> TableRex.quick_render!(["Package", "License", "Version", "Link"])
+    |> output()
   end
 
   defp render_csv(rows) do
     rows
     |> List.insert_at(0, ["Package", "Version", "License"])
     |> CSV.encode()
-    |> Enum.each(&IO.write/1)
+    |> Enum.each(&output/1)
+  end
+
+  defp output(text) do
+    IO.write(text)
+
+    if @output_file do
+      with {:ok, file} <- File.open(@output_file, [:write]) do
+        IO.binwrite(file, text)
+        IO.puts("\n\nSaved the output to " <> @output_file)
+      else
+        e ->
+          IO.puts("\n\nCould not write to " <> @output_file)
+      end
+    end
   end
 end

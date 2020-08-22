@@ -15,7 +15,7 @@ defmodule Licensir.Scanner do
     mit: "MIT",
     mpl2: "MPL2",
     licensir_mock_license: "Licensir Mock License",
-    unrecognized_license_file: "Unrecognized license file content"
+    unrecognized_license_file: "Unrecognized license"
   }
 
   @doc """
@@ -31,6 +31,7 @@ defmodule Licensir.Scanner do
     |> filter_top_level(opts)
     |> search_hex_metadata()
     |> search_file()
+    # |> IO.inspect()
     |> Guesser.guess()
   end
 
@@ -51,17 +52,20 @@ defmodule Licensir.Scanner do
   defp to_struct(deps) when is_list(deps), do: Enum.map(deps, &to_struct/1)
 
   defp to_struct(%Mix.Dep{} = dep) do
+    # IO.inspect(dep)
+
     %License{
       app: dep.app,
       name: Atom.to_string(dep.app),
       version: get_version(dep),
+      link: get_link(dep.opts),
       dep: dep
     }
   end
 
   defp filter_top_level(deps, opts) do
     if Keyword.get(opts, :top_level_only) do
-      Enum.filter(deps, &(&1.dep.top_level))
+      Enum.filter(deps, & &1.dep.top_level)
     else
       deps
     end
@@ -70,14 +74,21 @@ defmodule Licensir.Scanner do
   defp get_version(%Mix.Dep{status: {:ok, version}}), do: version
   defp get_version(_), do: nil
 
+  defp get_link(opts) when is_list(opts), do: get_link(Enum.into(opts, %{}))
+  defp get_link(%{git: url}), do: url
+  defp get_link(%{hex: hex}), do: "https://hex.pm/#{hex}"
+  defp get_link(_), do: nil
+
   #
   # Search in hex_metadata.config
   #
 
-  defp search_hex_metadata(licenses) when is_list(licenses), do: Enum.map(licenses, &search_hex_metadata/1)
+  defp search_hex_metadata(licenses) when is_list(licenses),
+    do: Enum.map(licenses, &search_hex_metadata/1)
 
   defp search_hex_metadata(%License{} = license) do
     Map.put(license, :hex_metadata, search_hex_metadata(license.dep))
+    # IO.inspect(license)
   end
 
   defp search_hex_metadata(%Mix.Dep{} = dep) do
@@ -115,6 +126,8 @@ defmodule Licensir.Scanner do
         end
       end)
 
-    Map.get(@human_names, license_atom)
+    # IO.inspect(license_atom: license_atom)
+
+    Map.get(@human_names, license_atom, to_string(license_atom))
   end
 end

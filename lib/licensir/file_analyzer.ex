@@ -4,7 +4,13 @@ defmodule Licensir.FileAnalyzer do
 
   # The files that contain the actual text for each license
   @files [
-    apache2: ["Apache2_text.txt", "Apache2_text.variant-2.txt", "Apache2_url.txt"],
+    AGPLv3: ["AGPLv3.txt"],
+    apache2: [
+      "Apache2_text.txt",
+      "Apache2_text.variant-2.txt",
+      "Apache2_text.variant-3.txt",
+      "Apache2_url.txt"
+    ],
     bsd: ["BSD-3.txt", "BSD-3.variant-2.txt"],
     cc0: ["CC0-1.0.txt"],
     gpl_v2: ["GPLv2.txt"],
@@ -30,6 +36,8 @@ defmodule Licensir.FileAnalyzer do
 
   # Returns the first license that matches
   defp analyze_content(content) do
+    content = clean(content)
+
     Enum.find_value(@files, fn {license, license_files} ->
       found =
         Enum.find(license_files, fn license_file ->
@@ -40,13 +48,26 @@ defmodule Licensir.FileAnalyzer do
             |> Path.join(license_file)
             |> File.read!()
 
+          # IO.inspect(license_file: license_file)
+          # IO.inspect(license: license)
+
           # Returns true only if the content is a superset of the license text
-          clean(content) =~ clean(license)
+          content =~ clean(license)
         end)
 
       if found, do: license, else: nil
-    end) || :unrecognized_license_file
+    end) || unrecognised(content)
   end
 
-  defp clean(content), do: String.replace(content, ~r/\v/, "")
+  defp unrecognised(_content) do
+    # IO.inspect(unrecognised_license: content)
+    :unrecognized_license_file
+  end
+
+  defp clean(content),
+    do:
+      content
+      |> String.replace("\n", " ")
+      |> String.replace(~r/\s\s+/, " ")
+      |> String.trim()
 end
