@@ -5,7 +5,7 @@ defmodule Licensir.Mix.Tasks.LicensesTest do
   test "prints a list of dependencies and their licenses" do
     output =
       capture_io(fn ->
-        Mix.Tasks.Licenses.run([])
+        Mix.Tasks.Licenses.run(["--only_license=true"])
       end)
 
     expected =
@@ -16,35 +16,35 @@ defmodule Licensir.Mix.Tasks.LicensesTest do
         ],
         :reset,
         "\n",
-        "+-----------------------------------+---------+----------------------------------------------------+",
+        # "|---------------------------------|----------------------------------------------------|",
         "\n",
-        "| Package                           | Version | License                                            |",
+        "| Package                           | License                                            |",
         "\n",
-        "+-----------------------------------+---------+----------------------------------------------------+",
+        "|-----------------------------------|----------------------------------------------------|",
         "\n",
-        "| dep_license_undefined             |         | Undefined                                          |",
+        "| dep_license_undefined             | Undefined                                          |",
         "\n",
-        "| dep_of_dep                        |         | Undefined                                          |",
+        "| dep_of_dep                        | Undefined                                          |",
         "\n",
-        "| dep_one_license                   |         | Licensir Mock License                              |",
+        "| dep_one_license                   | Licensir Mock License                              |",
         "\n",
-        "| dep_one_unrecognized_license_file |         | Unrecognized license                               |",
+        "| dep_one_unrecognized_license_file | Unrecognized license                               |",
         "\n",
-        "| dep_two_conflicting_licenses      |         | Unsure (found: License One, Licensir Mock License) |",
+        "| dep_two_conflicting_licenses      | License One; Licensir Mock License                 |",
         "\n",
-        "| dep_two_licenses                  |         | License Two, License Three                         |",
+        "| dep_two_licenses                  | License Two, License Three                         |",
         "\n",
-        "| dep_two_variants_same_license     |         | Apache 2.0                                         |",
+        "| dep_two_variants_same_license     | Apache 2.0                                         |",
         "\n",
-        "| dep_with_dep                      |         | Undefined                                          |",
+        "| dep_with_dep                      | Undefined                                          |",
         "\n",
-        "+-----------------------------------+---------+----------------------------------------------------+",
+        "|-----------------------------------|----------------------------------------------------|",
         "\n",
-        "\n"
+        "\n\n"
       ])
       |> to_string()
 
-    assert output == expected
+    assert Licensir.FileAnalyzer.clean(output) == Licensir.FileAnalyzer.clean(expected)
   end
 
   test "prints csv format when given --csv flag" do
@@ -59,7 +59,7 @@ defmodule Licensir.Mix.Tasks.LicensesTest do
     dep_of_dep,,Undefined\r
     dep_one_license,,Licensir Mock License\r
     dep_one_unrecognized_license_file,,Unrecognized license\r
-    dep_two_conflicting_licenses,,"Unsure (found: License One, Licensir Mock License)"\r
+    dep_two_conflicting_licenses,,"License One; Licensir Mock License"\r
     dep_two_licenses,,"License Two, License Three"\r
     dep_two_variants_same_license,,Apache 2.0\r
     dep_with_dep,,Undefined\r

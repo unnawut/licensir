@@ -14,7 +14,8 @@ defmodule Mix.Tasks.Licenses do
   @recursive true
   @switches [
     top_level_only: :boolean,
-    csv: :boolean
+    csv: :boolean,
+    only_license: :boolean
   ]
 
   def run(argv) do
@@ -22,22 +23,33 @@ defmodule Mix.Tasks.Licenses do
 
     Licensir.Scanner.scan(opts)
     |> Enum.sort_by(fn lib -> lib.name end)
-    |> Enum.map(&to_row/1)
+    |> Enum.map(&to_row(&1, opts))
     |> render(opts)
   end
 
-  defp to_row(map) do
-    [map.name, map.license, map.version, map.link]
+  defp to_row(map, opts) do
+    if Keyword.get(opts, :only_license),
+      do: [map.name, map.license],
+      else: [map.name, map.license, map.version, map.link]
   end
 
   defp render(rows, opts) do
+    if Keyword.get(opts, :only_license),
+      do: render(rows, opts, ["Package", "License"]),
+      else: render(rows, opts, ["Package", "License", "Version", "Link"])
+  end
+
+  defp render(rows, opts, headers) do
     cond do
-      Keyword.get(opts, :csv) -> render_csv(rows)
-      true -> render_ascii_table(rows)
+      Keyword.get(opts, :csv) ->
+        render_csv(rows, headers)
+
+      true ->
+        render_ascii_table(rows, headers)
     end
   end
 
-  defp render_ascii_table(rows) do
+  defp render_ascii_table(rows, headers) do
     _ =
       Mix.Shell.IO.info([
         :yellow,
@@ -45,28 +57,45 @@ defmodule Mix.Tasks.Licenses do
       ])
 
     rows
-    |> TableRex.quick_render!(["Package", "License", "Version", "Link"])
+    |> TableRex.quick_render!(headers)
+    |> file_touch()
     |> output()
   end
 
-  defp render_csv(rows) do
+  defp render_csv(rows, headers) do
     rows
-    |> List.insert_at(0, ["Package", "Version", "License"])
+    |> List.insert_at(0, headers)
     |> CSV.encode()
+    |> file_touch()
     |> Enum.each(&output/1)
   end
 
-  defp output(text) do
-    IO.write(text)
-
+  defp file_touch(text) do
     if @output_file do
       with {:ok, file} <- File.open(@output_file, [:write]) do
-        IO.binwrite(file, text)
-        IO.puts("\n\nSaved the output to " <> @output_file)
+        # IO.puts("\n\nSaving the output to " <> @output_file)
+        IO.binwrite(file, "\n")
+        text
       else
         e ->
-          IO.puts("\n\nCould not write to " <> @output_file)
+          _ =
+            Mix.Shell.IO.info([
+              :yellow,
+              "WARNING: Could not write to " <> @output_file
+            ])
+
+          nil
       end
     end
+  end
+
+  defp output(text) do
+    filewriter = fn filename, data ->
+      File.open(filename, [:append])
+      |> elem(1)
+      |> IO.binwrite(data)
+    end
+
+    if @output_file, do: filewriter.(@output_file, text)
   end
 end

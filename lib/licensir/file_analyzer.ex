@@ -64,7 +64,7 @@ defmodule Licensir.FileAnalyzer do
     :unrecognized_license_file
   end
 
-  defp clean(content),
+  def clean(content),
     do:
       content
       |> String.replace("\n", " ")
