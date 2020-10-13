@@ -2,7 +2,7 @@ defmodule Licensir.Scanner do
   @moduledoc """
   Scans the project's dependencies for their license information.
   """
-  alias Licensir.{License, FileAnalyzer, Guesser}
+  alias Licensir.{License, FileAnalyzer, Guesser, ConfigFile}
 
   @human_names %{
     apache2: "Apache 2",
@@ -25,6 +25,7 @@ defmodule Licensir.Scanner do
   def scan(opts) do
     # Make sure the dependencies are loaded
     Mix.Project.get!()
+    {:ok, config} = Licensir.ConfigFile.parse(opts[:config_file])
 
     deps()
     |> to_struct()
@@ -32,6 +33,7 @@ defmodule Licensir.Scanner do
     |> search_hex_metadata()
     |> search_file()
     |> Guesser.guess()
+    |> put_status(config)
   end
 
   @spec deps() :: list(Mix.Dep.t())
@@ -57,6 +59,18 @@ defmodule Licensir.Scanner do
       version: get_version(dep),
       dep: dep
     }
+  end
+
+  defp put_status(licenses, config) when is_list(licenses),
+    do: Enum.map(licenses, &put_status(&1, config))
+
+  defp put_status(%License{name: name, license: license_name} = license, %ConfigFile{} = config) do
+    cond do
+      name in config.allow_deps -> %{license | status: :allowed}
+      license_name in config.allowlist -> %{license | status: :allowed}
+      license_name in config.denylist -> %{license | status: :not_allowed}
+      true -> license
+    end
   end
 
   defp filter_top_level(deps, opts) do

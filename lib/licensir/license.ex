@@ -21,6 +21,7 @@ defmodule Licensir.License do
             license: nil,
             certainty: 0.0,
             mix: nil,
+            status: :unknown,
             hex_metadata: nil,
             file: nil
 
@@ -33,6 +34,9 @@ defmodule Licensir.License do
           certainty: float(),
           mix: list(String.t()) | nil,
           hex_metadata: list(String.t()) | nil,
+          status: status(),
           file: String.t() | nil
         }
+
+  @type status :: :allowed | :not_allowed | :unknown
 end

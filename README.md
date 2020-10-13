@@ -111,3 +111,4 @@ This project contains 3rd party work as follow:
 
 - ASCII table rendering: a [partial copy](./lib/table_rex) of [djm/table_rex](https://github.com/djm/table_rex).
 - CSV rendering: a [partial copy](./lib/csv) of [beatrichartz/csv](https://github.com/beatrichartz/csv).
+- Config parsing: a [partial copy](./lib/credo) of [rrrene/credo](https://github.com/rrrene/credo)
