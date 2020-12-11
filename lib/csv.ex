@@ -1,4 +1,4 @@
-defmodule CSV do
+defmodule LicensirCSV do
   use CSV.Defaults
 
   alias CSV.Encoding.Encoder
