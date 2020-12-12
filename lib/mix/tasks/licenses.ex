@@ -47,7 +47,7 @@ defmodule Mix.Tasks.Licenses do
   defp render_csv(rows) do
     rows
     |> List.insert_at(0, ["Package", "Version", "License"])
-    |> CSV.encode()
+    |> Licensir.CSV.encode()
     |> Enum.each(&IO.write/1)
   end
 end
