@@ -23,12 +23,15 @@ defmodule Licensir.FileAnalyzer do
   ]
 
   def analyze(dir_path) do
+    IO.inspect(analyze_dir: dir_path)
     Enum.find_value(@license_files, fn file_name ->
       dir_path
       |> Path.join(file_name)
       |> File.read()
       |> case do
-        {:ok, content} -> analyze_content(content)
+        {:ok, content} ->
+          IO.inspect(analyze: file_name)
+          analyze_content(content)
         {:error, _} -> nil
       end
     end)

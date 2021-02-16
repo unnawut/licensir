@@ -5,6 +5,7 @@ defmodule Licensir.Scanner do
   alias Licensir.{License, FileAnalyzer, Guesser}
 
   @human_names %{
+    AGPLv3: "AGPL v3",
     apache2: "Apache 2",
     bsd: "BSD",
     cc0: "CC0-1.0",
@@ -118,6 +119,7 @@ defmodule Licensir.Scanner do
   end
 
   defp search_file(%Mix.Dep{} = dep) do
+    IO.inspect(search_file: dep)
     license_atom =
       Mix.Dep.in_dependency(dep, fn _ ->
         case File.cwd() do
