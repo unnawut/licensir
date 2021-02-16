@@ -17,12 +17,14 @@ defmodule Licensir.Guesser do
     Map.put(license, :license, conclusion)
   end
 
+  defp guess(file, ""), do: guess(file, nil)
   defp guess(nil, nil), do: "Undefined"
   defp guess(nil, file), do: file
-  defp guess(hex, nil) when length(hex) > 0, do: Enum.join(hex, ", ")
+  defp guess(hex, nil) when length(hex) > 0, do: Enum.join(hex, "; ")
   defp guess(hex, file) when length(hex) == 1 and hd(hex) == file, do: file
 
   defp guess(hex, file) do
-    "Unsure (found: " <> Enum.join(hex, ", ") <> ", " <> file <> ")"
+    # IO.inspect(file: file)
+    Enum.join(hex, "; ") <> "; " <> file
   end
 end
