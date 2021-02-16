@@ -32,25 +32,24 @@ Run `mix licenses` to get the list of packages and their licenses:
 
 ```shell
 $ mix licenses
-+---------------------+---------+--------------------------------------------------------+
-| Package             | Version | License                                                |
-+---------------------+---------+--------------------------------------------------------+
-| certifi             |         | BSD                                                    |
-| earmark             | 1.3.2   | Apache 2.0                                             |
-| ex_doc              | 0.20.2  | Apache 2.0                                             |
-| excoveralls         |         | Unsure (found: MIT, Unrecognized license file content) |
-| hackney             |         | Apache 2.0                                             |
-| idna                |         | Unsure (found: BSD, MIT)                               |
-| jason               |         | Apache 2.0                                             |
-| makeup              | 0.8.0   | Unsure (found: BSD, Unrecognized license file content) |
-| makeup_elixir       | 0.13.0  | BSD                                                    |
-| metrics             |         | BSD                                                    |
-| mimerl              |         | MIT                                                    |
-| nimble_parsec       | 0.5.0   | Apache 2.0                                             |
-| ssl_verify_fun      |         | MIT                                                    |
-| table_rex           | 2.0.0   | MIT                                                    |
-| unicode_util_compat |         | Unsure (found: Apache 2.0, BSD)                        |
-+---------------------+---------+--------------------------------------------------------+
+Notice: This is not a legal advice. Use the information below at your own risk.
+| Package             | License                   | Version | Link                                        |
+|---------------------|---------------------------|---------|---------------------------------------------|
+| certifi             | BSD                       |         | https://hex.pm/packages/certifi             |
+| earmark             | Apache 2.0                | 1.3.2   | https://hex.pm/packages/earmark             |
+| ex_doc              | Apache 2.0                | 0.20.2  | https://hex.pm/packages/ex_doc              |
+| excoveralls         | MIT                       |         | https://hex.pm/packages/excoveralls         |
+| hackney             | Apache 2.0                |         | https://hex.pm/packages/hackney             |
+| idna                | BSD; MIT                  |         | https://hex.pm/packages/idna                |
+| jason               | Apache 2.0                |         | https://hex.pm/packages/jason               |
+| makeup              | BSD; Unrecognized license | 0.8.0   | https://hex.pm/packages/makeup              |
+| makeup_elixir       | BSD                       | 0.13.0  | https://hex.pm/packages/makeup_elixir       |
+| metrics             | BSD                       |         | https://hex.pm/packages/metrics             |
+| mimerl              | MIT                       |         | https://hex.pm/packages/mimerl              |
+| nimble_parsec       | Apache 2.0                | 0.5.0   | https://hex.pm/packages/nimble_parsec       |
+| ssl_verify_fun      | MIT                       |         | https://hex.pm/packages/ssl_verify_fun      |
+| unicode_util_compat | Apache 2.0; BSD           |         | https://hex.pm/packages/unicode_util_compat |
+|---------------------|---------------------------|---------|---------------------------------------------|
 ```
 
 Run `mix licenses --csv` to output in csv format:
@@ -74,7 +73,8 @@ unicode_util_compat,,"Unsure (found: Apache 2.0, BSD)"
 ```
 
 ### Flags
-* `--top-level-only` - Only fetch license information from top level dependencies (e.g. packages that are directly listed in your application's `mix.exs`). Excludes transitive dependencies.
+
+- `--top-level-only` - Only fetch license information from top level dependencies (e.g. packages that are directly listed in your application's `mix.exs`). Excludes transitive dependencies.
 
 ## Usage as a library
 
