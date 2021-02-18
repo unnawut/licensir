@@ -73,8 +73,10 @@ defmodule Licensir.Scanner do
   end
 
   defp get_version(%Mix.Dep{status: {:ok, version}}), do: version
+  defp get_version(%Mix.Dep{requirement: version}), do: version
   defp get_version(_), do: nil
 
+  defp get_link(%{opts: opts}) when is_list(opts), do: get_link(Enum.into(opts, %{}))
   defp get_link(opts) when is_list(opts), do: get_link(Enum.into(opts, %{}))
   defp get_link(%{git: url}), do: url
   defp get_link(%{hex: hex}), do: "https://hex.pm/packages/#{hex}"
