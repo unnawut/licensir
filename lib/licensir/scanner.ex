@@ -80,6 +80,7 @@ defmodule Licensir.Scanner do
   defp get_link(opts) when is_list(opts), do: get_link(Enum.into(opts, %{}))
   defp get_link(%{git: url}), do: url
   defp get_link(%{hex: hex}), do: "https://hex.pm/packages/#{hex}"
+  defp get_link(%{lock: {:git, url, _, _}}), do: url
   defp get_link(_), do: nil
 
   #
