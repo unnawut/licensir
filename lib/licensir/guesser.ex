@@ -24,7 +24,6 @@ defmodule Licensir.Guesser do
   defp guess(hex, file) when length(hex) == 1 and hd(hex) == file, do: file
 
   defp guess(hex, file) do
-    # IO.inspect(file: file)
     Enum.join(hex, "; ") <> "; " <> file
   end
 end

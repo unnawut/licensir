@@ -53,7 +53,7 @@ defmodule Mix.Tasks.Licenses do
     _ =
       Mix.Shell.IO.info([
         :yellow,
-        "Notice: This is not a legal advice. Use the information below at your own risk."
+        "Notice: This is not a legal advice. Use the generated licensing information at your own risk."
       ])
 
     rows
@@ -77,7 +77,7 @@ defmodule Mix.Tasks.Licenses do
         IO.binwrite(file, "\n")
         text
       else
-        e ->
+        _e ->
           _ =
             Mix.Shell.IO.info([
               :yellow,

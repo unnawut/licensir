@@ -6,15 +6,15 @@ defmodule Licensir.Scanner do
 
   @human_names %{
     agpl_v3: "AGPL v3",
-    apache2: "Apache 2",
+    apache2: "Apache 2.0",
     bsd: "BSD",
-    cc0: "CC0-1.0",
-    gpl_v2: "GPLv2",
-    gpl_v3: "GPLv3",
+    cc0: "CC0 1.0",
+    gpl_v2: "GPL v2",
+    gpl_v3: "GPL v3",
     isc: "ISC",
     lgpl: "LGPL",
     mit: "MIT",
-    mpl2: "MPL2",
+    mpl2: "MPL 2.0",
     licensir_mock_license: "Licensir Mock License",
     unrecognized_license_file: "Unrecognized license"
   }
@@ -32,7 +32,6 @@ defmodule Licensir.Scanner do
     |> filter_top_level(opts)
     |> search_hex_metadata()
     |> search_file()
-    # |> IO.inspect()
     |> Guesser.guess()
   end
 
@@ -53,7 +52,6 @@ defmodule Licensir.Scanner do
   defp to_struct(deps) when is_list(deps), do: Enum.map(deps, &to_struct/1)
 
   defp to_struct(%Mix.Dep{} = dep) do
-    # IO.inspect(dep)
 
     %License{
       app: dep.app,
@@ -66,7 +64,7 @@ defmodule Licensir.Scanner do
 
   defp filter_top_level(deps, opts) do
     if Keyword.get(opts, :top_level_only) do
-      Enum.filter(deps, & &1.dep.top_level)
+      Enum.filter(deps, &(&1.dep.top_level))
     else
       deps
     end
@@ -92,7 +90,6 @@ defmodule Licensir.Scanner do
 
   defp search_hex_metadata(%License{} = license) do
     Map.put(license, :hex_metadata, search_hex_metadata(license.dep))
-    # IO.inspect(license)
   end
 
   defp search_hex_metadata(%Mix.Dep{} = dep) do
@@ -122,7 +119,6 @@ defmodule Licensir.Scanner do
   end
 
   defp search_file(%Mix.Dep{} = dep) do
-    # IO.inspect(search_file: dep)
 
     license_atom =
       Mix.Dep.in_dependency(dep, fn _ ->
@@ -132,8 +128,6 @@ defmodule Licensir.Scanner do
         end
       end)
 
-    # IO.inspect(license_atom: license_atom)
-
-    Map.get(@human_names, license_atom, to_string(license_atom))
+    Map.get(@human_names, license_atom)
   end
 end

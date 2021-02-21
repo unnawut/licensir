@@ -23,16 +23,14 @@ defmodule Licensir.FileAnalyzer do
   ]
 
   def analyze(dir_path) do
-    # IO.inspect(analyze_dir: dir_path)
+
     Enum.find_value(@license_files, fn file_name ->
       dir_path
       |> Path.join(file_name)
       |> File.read()
       |> case do
         {:ok, content} ->
-          # IO.inspect(analyze: file_name)
           analyze_content(content)
-          #|> IO.inspect
         {:error, _} -> nil
       end
     end)
@@ -41,7 +39,6 @@ defmodule Licensir.FileAnalyzer do
   # Returns the first license that matches
   defp analyze_content(content) do
     content = clean(content)
-    # IO.inspect(content: content)
 
     Enum.find_value(@files, fn {license, license_files} ->
       found =
@@ -54,21 +51,15 @@ defmodule Licensir.FileAnalyzer do
             |> File.read!()
             |> clean()
 
-          # IO.inspect(license: license)
-          # IO.inspect(license_file: license_file)
-
           # Returns true only if the content is a superset of the license text
           content =~ license_text
         end)
-
-      # IO.inspect(found: found)
 
       if found, do: license, else: nil
     end) || unrecognised(content)
   end
 
   defp unrecognised(_content) do
-    # IO.inspect(unrecognised_license: content)
     :unrecognized_license_file
   end
 

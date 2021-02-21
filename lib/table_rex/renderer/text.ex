@@ -77,7 +77,6 @@ defmodule TableRex.Renderer.Text do
 
     rendered =
       {table, meta, opts, []}
-      # |> render_top_frame
       |> render_title
       |> render_title_separator
       |> render_header
