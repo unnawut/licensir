@@ -36,7 +36,7 @@ defmodule Licensir.GuesserTest do
         file: "License Two"
       }
 
-      assert Guesser.guess(license).license == "Unsure (found: License One, License Two)"
+      assert Guesser.guess(license).license == "License One; License Two"
     end
 
     test "returns unsure if there are multiple licenses in hex_metadata and also one definted in file" do
@@ -46,7 +46,7 @@ defmodule Licensir.GuesserTest do
       }
 
       assert Guesser.guess(license).license ==
-               "Unsure (found: License One, License Two, License Three)"
+               "License One; License Two; License Three"
     end
 
     test "returns Undefined if no license data is found" do

@@ -26,7 +26,7 @@ defmodule TableRex.Renderer.Text do
       vertical_style: :all,
       horizontal_symbol: "-",
       vertical_symbol: "|",
-      intersection_symbol: "+",
+      intersection_symbol: "|",
       top_frame_symbol: "-",
       title_separator_symbol: "-",
       header_separator_symbol: "-",
@@ -77,7 +77,6 @@ defmodule TableRex.Renderer.Text do
 
     rendered =
       {table, meta, opts, []}
-      |> render_top_frame
       |> render_title
       |> render_title_separator
       |> render_header
