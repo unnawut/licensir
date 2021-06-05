@@ -1,10 +1,18 @@
-# Licensir [![Build Status](https://travis-ci.org/unnawut/licensir.svg?branch=master)](https://travis-ci.org/unnawut/licensir) [![Coverage Status](https://coveralls.io/repos/github/unnawut/licensir/badge.svg?branch=master)](https://coveralls.io/github/unnawut/licensir?branch=master)
+# Licensir
+
+[![Build Status](https://travis-ci.org/unnawut/licensir.svg?branch=master)](https://travis-ci.org/unnawut/licensir)
+[![Coverage Status](https://coveralls.io/repos/github/unnawut/licensir/badge.svg?branch=master)](https://coveralls.io/github/unnawut/licensir?branch=master)
+[![Module Version](https://img.shields.io/hexpm/v/licensir.svg)](https://hex.pm/packages/licensir)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/licensir/)
+[![Total Download](https://img.shields.io/hexpm/dt/licensir.svg)](https://hex.pm/packages/licensir)
+[![License](https://img.shields.io/hexpm/l/licensir.svg)](https://github.com/unnawut/licensir/blob/master/LICENSE.md)
+[![Last Updated](https://img.shields.io/github/last-commit/unnawut/licensir.svg)](https://github.com/unnawut/licensir/commits/master)
 
 An Elixir mix task that list the license(s) of all installed packages in your project.
 
 ## Installation
 
-The package can be installed by adding `licensir` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `:licensir` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -101,13 +109,14 @@ iex> Licensir.Scanner.scan([])
 ]
 ```
 
-## License
+## Copyright and License
 
-Copyright (c) 2017-2019, Unnawut Leepaisalsuwanna.
+Copyright (c) 2017, Unnawut Leepaisalsuwanna.
 
-Licensir is released under the [MIT License](LICENSE).
+This library is released under the MIT License. See the [LICENSE.md](./LICENSE.md) file
+for further details.
 
 This project contains 3rd party work as follow:
 
-- ASCII table rendering: a [partial copy](./lib/table_rex) of [djm/table_rex](https://github.com/djm/table_rex).
-- CSV rendering: a [partial copy](./lib/csv) of [beatrichartz/csv](https://github.com/beatrichartz/csv).
+- ASCII table rendering: a [partial copy](https://github.com/unnawut/licensir/tree/master/lib/table_rex) of [djm/table_rex](https://github.com/djm/table_rex).
+- CSV rendering: a [partial copy](https://github.com/unnawut/licensir/tree/master/lib/csv) of [beatrichartz/csv](https://github.com/beatrichartz/csv).
