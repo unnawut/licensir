@@ -1,4 +1,4 @@
-defmodule TableRex.Column do
+defmodule Licensir.TableRex.Column do
   @moduledoc """
   Defines a struct that represents a column's metadata
 

@@ -40,7 +40,7 @@ defmodule Mix.Tasks.Licenses do
     _ = Mix.Shell.IO.info([:yellow, "Notice: This is not a legal advice. Use the information below at your own risk."])
 
     rows
-    |> TableRex.quick_render!(["Package", "Version", "License"])
+    |> Licensir.TableRex.quick_render!(["Package", "Version", "License"])
     |> IO.puts()
   end
 
