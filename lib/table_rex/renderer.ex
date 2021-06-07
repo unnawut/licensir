@@ -1,4 +1,4 @@
-defmodule TableRex.Renderer do
+defmodule Licensir.TableRex.Renderer do
   @moduledoc """
   An Elixir behaviour that defines the API Renderers should conform to, allowing
   for display output in a variety of formats.
@@ -11,5 +11,5 @@ defmodule TableRex.Renderer do
   @callback default_options() :: map
 
   @doc "Renders a passed %TableRex.Table{} struct into a string."
-  @callback render(table :: %TableRex.Table{}, opts :: list) :: render_return
+  @callback render(table :: %Licensir.TableRex.Table{}, opts :: list) :: render_return
 end

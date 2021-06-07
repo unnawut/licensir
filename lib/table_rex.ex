@@ -1,9 +1,9 @@
-defmodule TableRex do
+defmodule Licensir.TableRex do
   @moduledoc """
   TableRex generates configurable, text-based tables for display
   """
-  alias TableRex.Renderer
-  alias TableRex.Table
+  alias Licensir.TableRex.Renderer
+  alias Licensir.TableRex.Table
 
   @doc """
   A shortcut function to render with a one-liner.

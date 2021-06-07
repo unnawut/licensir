@@ -1,4 +1,4 @@
-defmodule TableRex.Table do
+defmodule Licensir.TableRex.Table do
   @moduledoc """
   A set of functions for working with tables.
 
@@ -6,10 +6,10 @@ defmodule TableRex.Table do
   fields are private and must not be accessed directly. Instead,
   use the functions in this module.
   """
-  alias TableRex.Cell
-  alias TableRex.Column
-  alias TableRex.Renderer
-  alias TableRex.Table
+  alias Licensir.TableRex.Cell
+  alias Licensir.TableRex.Column
+  alias Licensir.TableRex.Renderer
+  alias Licensir.TableRex.Table
 
   defstruct title: nil, header_row: [], rows: [], columns: %{}, default_column: %Column{}
 
@@ -25,7 +25,7 @@ defmodule TableRex.Table do
   ## Examples
 
       iex> Table.new
-      %TableRex.Table{}
+      %Licensir.TableRex.Table{}
 
   """
   @spec new() :: Table.t()
@@ -34,7 +34,7 @@ defmodule TableRex.Table do
   @doc """
   Creates a new table with an initial set of rows and an optional header and title.
   """
-  @spec new(list, list, String.t()) :: Table.t()
+  @spec new(list, list, String.t() | nil) :: Table.t()
   def new(rows, header_row \\ [], title \\ nil) when is_list(rows) and is_list(header_row) do
     new()
     |> put_title(title)
@@ -197,7 +197,7 @@ defmodule TableRex.Table do
 
   def sort(%Table{rows: [first_row | _]}, column_index, _order)
       when length(first_row) <= column_index do
-    raise TableRex.Error,
+    raise Licensir.TableRex.Error,
       message:
         "You cannot sort by column #{column_index}, as the table only has #{length(first_row)} column(s)"
   end
@@ -220,7 +220,7 @@ defmodule TableRex.Table do
   end
 
   defp build_sort_function(_column_index, order) do
-    raise TableRex.Error,
+    raise Licensir.TableRex.Error,
       message: "Invalid sort order parameter: #{order}. Must be an atom, either :desc or :asc."
   end
 
@@ -233,7 +233,7 @@ defmodule TableRex.Table do
   end
 
   @doc """
-  Retreives the value of a column meta option at the specified col_index.
+  Retrieves the value of a column meta option at the specified col_index.
   If no value has been set, default values are returned.
   """
   @spec get_column_meta(Table.t(), integer, atom) :: any
@@ -291,7 +291,7 @@ defmodule TableRex.Table do
   def render!(%Table{} = table, opts \\ []) when is_list(opts) do
     case render(table, opts) do
       {:ok, rendered_string} -> rendered_string
-      {:error, reason} -> raise TableRex.Error, message: reason
+      {:error, reason} -> raise Licensir.TableRex.Error, message: reason
     end
   end
 end

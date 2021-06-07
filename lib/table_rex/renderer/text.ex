@@ -1,12 +1,12 @@
-defmodule TableRex.Renderer.Text do
+defmodule Licensir.TableRex.Renderer.Text do
   @moduledoc """
   Renderer module which handles outputting ASCII-style tables for display.
   """
-  alias TableRex.Cell
-  alias TableRex.Table
-  alias TableRex.Renderer.Text.Meta
+  alias Licensir.TableRex.Cell
+  alias Licensir.TableRex.Table
+  alias Licensir.TableRex.Renderer.Text.Meta
 
-  @behaviour TableRex.Renderer
+  @behaviour Licensir.TableRex.Renderer
 
   # horizontal_styles: [:all, :header, :frame:, :off]
   # vertical_styles: [:all, :frame, :off]
@@ -174,14 +174,7 @@ defmodule TableRex.Renderer.Text do
 
   defp render_header({%Table{header_row: header_row} = table, meta, opts, rendered}) do
     separator = if meta.render_column_separators?, do: opts[:vertical_symbol], else: " "
-    line = render_cell_row(table, meta, header_row, separator)
-
-    line =
-      if meta.render_vertical_frame? do
-        line |> frame_with(opts[:vertical_symbol])
-      else
-        line
-      end
+    line = render_cell_row(table, meta, header_row, separator, opts[:vertical_symbol])
 
     {table, meta, opts, [line | rendered]}
   end
@@ -219,15 +212,10 @@ defmodule TableRex.Renderer.Text do
   end
 
   defp render_rows({%Table{rows: rows} = table, meta, opts, rendered}) do
-    separator = if meta.render_column_separators?, do: opts[:vertical_symbol], else: " "
-    lines = Enum.map(rows, &render_cell_row(table, meta, &1, separator))
+    cell_separator = if meta.render_column_separators?, do: opts[:vertical_symbol], else: " "
 
     lines =
-      if meta.render_vertical_frame? do
-        Enum.map(lines, &frame_with(&1, opts[:vertical_symbol]))
-      else
-        lines
-      end
+      Enum.map(rows, &render_cell_row(table, meta, &1, cell_separator, opts[:vertical_symbol]))
 
     lines =
       if meta.render_row_separators? do
@@ -247,6 +235,12 @@ defmodule TableRex.Renderer.Text do
     rendered = lines ++ rendered
     {table, meta, opts, rendered}
   end
+
+  defp vertically_framed(lines, %{render_vertical_frame?: true}, symbol) do
+    Enum.map(lines, &frame_with(&1, symbol))
+  end
+
+  defp vertically_framed(lines, _, _), do: lines
 
   defp render_bottom_frame({table, %Meta{render_horizontal_frame?: false} = meta, opts, rendered}) do
     {table, meta, opts, rendered}
@@ -271,8 +265,24 @@ defmodule TableRex.Renderer.Text do
     |> Enum.join()
   end
 
-  defp render_cell_row(%Table{} = table, %Meta{} = meta, row, separator) do
+  defp render_cell_row(%Table{} = table, %Meta{} = meta, row, cell_separator, frame_symbol) do
+    row_height =
+      row
+      |> Enum.map(&Cell.height/1)
+      |> Enum.max()
+
+    1..row_height
+    |> Enum.map(&render_cell_row_line(table, meta, row, cell_separator, &1))
+    |> vertically_framed(meta, frame_symbol)
+    |> Enum.join("\n")
+  end
+
+  defp render_cell_row_line(%Table{} = table, %Meta{} = meta, row, separator, line_index) do
     row
+    |> Enum.map(fn %Cell{wrapped_lines: lines} = cell ->
+      line_value = Enum.at(lines, line_index - 1) || ""
+      %Cell{cell | rendered_value: line_value}
+    end)
     |> Enum.with_index()
     |> Enum.map(&render_cell(table, meta, &1))
     |> Enum.intersperse(separator)
@@ -341,7 +351,7 @@ defmodule TableRex.Renderer.Text do
       |> Enum.with_index()
       |> Enum.reduce({%{}, %{}}, &reduce_row_maximums(table, &1, &2))
 
-    num_columns = Map.size(col_widths)
+    num_columns = map_size(col_widths)
 
     # Infer padding on left and right of title
     title_padding =
@@ -392,7 +402,7 @@ defmodule TableRex.Renderer.Text do
       |> String.split("\n")
 
     height = Enum.count(lines)
-    width = Enum.max(lines) |> String.length()
+    width = lines |> Enum.map(&String.length/1) |> Enum.max()
     {width + padding * 2, height}
   end
 
