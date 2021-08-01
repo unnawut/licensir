@@ -1,3 +1,7 @@
+**Notice: This repository is now archived.** Thank you for over 192,000 downloads since December 2017. While I think Elixir is an awesome ecosystem, I no longer have the chance to be developing using Elixir on a regular basis. :'(
+
+-----
+
 # Licensir
 
 [![Build Status](https://travis-ci.org/unnawut/licensir.svg?branch=master)](https://travis-ci.org/unnawut/licensir)
