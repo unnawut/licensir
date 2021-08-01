@@ -17,6 +17,7 @@ defmodule Licensir.Guesser do
     Map.put(license, :license, conclusion)
   end
 
+  defp guess([], nil), do: "Undefined"
   defp guess(nil, nil), do: "Undefined"
   defp guess(nil, file), do: file
   defp guess(hex, nil) when length(hex) > 0, do: Enum.join(hex, ", ")
